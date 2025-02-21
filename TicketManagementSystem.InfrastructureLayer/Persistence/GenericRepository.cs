@@ -4,7 +4,7 @@ namespace TicketManagementSystem.InfrastructureLayer.Persistence
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        public IQueryable<T> GetAsIQueryable()
+        public Task<List<T?>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
