@@ -1,22 +1,37 @@
-﻿using TicketManagementSystem.Core.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using TicketManagementSystem.Core.Interfaces;
 
 namespace TicketManagementSystem.InfrastructureLayer.Persistence
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        public Task<List<T?>> GetAllAsync()
+        protected readonly TicketDbContext _context;
+        protected readonly DbSet<T> _dbSet;
+
+        public GenericRepository(TicketDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+            _dbSet = _context.Set<T>();
         }
 
-        public Task<T?> GetByIdAsync(int id)
+        public async Task<List<T?>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _dbSet.ToListAsync();
         }
 
-        public Task<T> AddAsync(T entity)
+        public async Task<T?> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _dbSet.FindAsync(id);
+        }
+
+        public async Task AddAsync(T entity)
+        {
+            await _dbSet.AddAsync(entity);
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await _context.SaveChangesAsync();
         }
     }
 }

@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using TicketManagementSystem.InfrastructureLayer.Persistence;
 
 namespace TicketManagementSystem.API
 {
@@ -8,6 +10,9 @@ namespace TicketManagementSystem.API
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddDbContext<TicketDbContext>(options =>
+                    options.UseSqlServer(builder.Configuration.GetConnectionString("TicketManagementSystemDbConnection")));
+
             builder.Services.AddAuthorization();
 
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi

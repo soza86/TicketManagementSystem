@@ -6,6 +6,8 @@
 
         Task<T?> GetByIdAsync(int id);
 
-        Task<T> AddAsync(T entity);
+        Task AddAsync(T entity);
+
+        Task SaveChangesAsync();
     }
 }

@@ -1,14 +1,12 @@
 ﻿using TicketManagementSystem.ApplicationLayer.DTOs;
 using TicketManagementSystem.ApplicationLayer.Interfaces;
-using TicketManagementSystem.Core.Entities;
-using TicketManagementSystem.Core.Interfaces;
 
 namespace TicketManagementSystem.ApplicationLayer.Services
 {
-    public class TicketService(IGenericRepository<Ticket> ticketRepositoy, ITicketMapper ticketMapper) : ITicketService
+    public class TicketService(ITicketRepository ticketRepositoy, ITicketMapper ticketMapper) : ITicketService
     {
-        private readonly IGenericRepository<Ticket> _ticketRepositoy = ticketRepositoy;
-        private readonly ITicketMapper _ticketMapper;
+        private readonly ITicketRepository _ticketRepositoy = ticketRepositoy;
+        private readonly ITicketMapper _ticketMapper = ticketMapper;
 
         public async Task<ServiceResponse<List<TicketDto>>> GetAllAsync()
         {
