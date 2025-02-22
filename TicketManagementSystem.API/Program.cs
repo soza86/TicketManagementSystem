@@ -1,5 +1,6 @@
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using System.ComponentModel.DataAnnotations;
 using TicketManagementSystem.API.Middlewares;
 using TicketManagementSystem.API.Validators;
@@ -18,6 +19,14 @@ namespace TicketManagementSystem.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(builder.Configuration)
+                .Enrich.FromLogContext()
+                .WriteTo.Console()
+                .WriteTo.File($"Logs/logs.txt", rollingInterval: RollingInterval.Day)
+                .CreateLogger();
+
+            builder.Host.UseSerilog();
             // Add services to the container.
             builder.Services.AddDbContext<TicketDbContext>(options =>
                                 options.UseSqlServer(builder.Configuration.GetConnectionString("TicketManagementSystemDbConnection"),
@@ -38,6 +47,8 @@ namespace TicketManagementSystem.API
             var app = builder.Build();
 
             app.UseMiddleware<CustomExceptionMiddleware>();
+
+            app.UseSerilogRequestLogging();
 
             using (var scope = app.Services.CreateScope())
             {
