@@ -11,7 +11,8 @@ namespace TicketManagementSystem.API
 
             // Add services to the container.
             builder.Services.AddDbContext<TicketDbContext>(options =>
-                    options.UseSqlServer(builder.Configuration.GetConnectionString("TicketManagementSystemDbConnection")));
+                                options.UseSqlServer(builder.Configuration.GetConnectionString("TicketManagementSystemDbConnection"),
+                                sqlOptions => sqlOptions.MigrationsAssembly("TicketManagementSystem.InfrastructureLayer")));
 
             builder.Services.AddAuthorization();
 
@@ -19,6 +20,12 @@ namespace TicketManagementSystem.API
             builder.Services.AddOpenApi();
 
             var app = builder.Build();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<TicketDbContext>();
+                dbContext.Database.Migrate();
+            }
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
