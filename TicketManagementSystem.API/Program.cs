@@ -1,6 +1,7 @@
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using TicketManagementSystem.API.Middlewares;
 using TicketManagementSystem.API.Validators;
 using TicketManagementSystem.ApplicationLayer.Common;
 using TicketManagementSystem.ApplicationLayer.DTOs;
@@ -35,6 +36,8 @@ namespace TicketManagementSystem.API
             builder.Services.AddOpenApi();
 
             var app = builder.Build();
+
+            app.UseMiddleware<CustomExceptionMiddleware>();
 
             using (var scope = app.Services.CreateScope())
             {
