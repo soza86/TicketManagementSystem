@@ -6,7 +6,7 @@ namespace TicketManagementSystem.ApplicationLayer.Interfaces
     {
         Task<ServiceResponse<List<TicketDto>>> GetAllAsync();
 
-        Task<ServiceResponse<TicketDto?>> GetByNumberAsync(int number);
+        Task<ServiceResponse<TicketDto?>> GetByNumberAsync(long number);
 
         Task<ServiceResponse<TicketDto?>> CreateAsync(CreateTicketDto createTicketDto);
     }

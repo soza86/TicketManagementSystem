@@ -14,7 +14,7 @@ namespace TicketManagementSystem.ApplicationLayer.Services
             throw new NotImplementedException();
         }
 
-        public async Task<ServiceResponse<TicketDto?>> GetByNumberAsync(int number)
+        public async Task<ServiceResponse<TicketDto?>> GetByNumberAsync(long number)
         {
             var ticketRecord = await _ticketRepository.GetByNumberAsync(number);
 
@@ -28,6 +28,11 @@ namespace TicketManagementSystem.ApplicationLayer.Services
         public async Task<ServiceResponse<TicketDto?>> CreateAsync(CreateTicketDto createTicketDto)
         {
             var ticket = _ticketMapper.MapToTicket(createTicketDto);
+
+            var record = await _ticketRepository.GetByNumberAsync(createTicketDto.Number);
+            if (record != null)
+                return ServiceResponse<TicketDto?>.FailureResponse("Ticket already exists.");
+
             var newTicketRecord = await _ticketRepository.AddAsync(ticket);
 
             var ticketDto = _ticketMapper.MapToTicketDto(newTicketRecord);

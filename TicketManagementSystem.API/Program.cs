@@ -69,6 +69,10 @@ namespace TicketManagementSystem.API
             app.MapGet("/tickets/{ticketNumber}", async (int ticketNumber, ITicketService ticketService) =>
             {
                 var ticketDetails = await ticketService.GetByNumberAsync(ticketNumber);
+
+                if (ticketDetails.StatusCode.Equals(404))
+                    return Results.NotFound(ticketDetails.Message);
+
                 return Results.Ok(ticketDetails);
             }).WithName("GetTicket");
 
@@ -79,6 +83,9 @@ namespace TicketManagementSystem.API
                     return Results.BadRequest(validationResult.Errors);
 
                 var result = await ticketService.CreateAsync(request);
+                if (result.StatusCode.Equals(400))
+                    return Results.BadRequest(result.Message);
+
                 return Results.Ok(result);
             }).WithName("CreateTicket");
 

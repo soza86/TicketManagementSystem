@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35514.174 d17.12
+VisualStudioVersion = 17.12.35514.174
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketManagementSystem.API", "TicketManagementSystem.API\TicketManagementSystem.API.csproj", "{DD02D036-E19E-4530-9AE0-DAE79888DBF8}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketManagementSystem.ApplicationLayer", "TicketManagementSystem.ApplicationLayer\TicketManagementSystem.ApplicationLayer.csproj", "{CAF2F2A1-7EED-477C-8357-71D5743C41A4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketManagementSystem.InfrastructureLayer", "TicketManagementSystem.InfrastructureLayer\TicketManagementSystem.InfrastructureLayer.csproj", "{BEBCB2EA-8231-4A15-8222-607014D3DE4F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketManagementSystem.Tests", "TicketManagementSystem.Tests\TicketManagementSystem.Tests.csproj", "{C1DAE970-4354-4E25-A78C-14E82ED011E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{BEBCB2EA-8231-4A15-8222-607014D3DE4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEBCB2EA-8231-4A15-8222-607014D3DE4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BEBCB2EA-8231-4A15-8222-607014D3DE4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1DAE970-4354-4E25-A78C-14E82ED011E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1DAE970-4354-4E25-A78C-14E82ED011E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1DAE970-4354-4E25-A78C-14E82ED011E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1DAE970-4354-4E25-A78C-14E82ED011E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

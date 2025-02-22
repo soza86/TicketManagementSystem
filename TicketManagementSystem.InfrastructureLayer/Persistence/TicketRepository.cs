@@ -7,22 +7,22 @@ namespace TicketManagementSystem.InfrastructureLayer.Persistence
     {
         public TicketRepository(TicketDbContext context) : base(context) { }
 
-        public Task<List<Ticket?>> GetAllAsync()
+        public override async Task<List<Ticket>> GetAllAsync()
         {
-            return base.GetAllAsync();
+            return await base.GetAllAsync();
         }
 
-        public Task<Ticket?> GetByIdAsync(int id)
+        public override async Task<Ticket?> GetByIdAsync(int id)
         {
-            return base.GetByIdAsync(id);
+            return await base.GetByIdAsync(id);
         }
 
-        public Task<Ticket?> GetByNumberAsync(int number)
+        public async Task<Ticket?> GetByNumberAsync(long number)
         {
-            return GetByFieldAsync(f => f.Number == number);
+            return await GetByFieldAsync(f => f.Number == number);
         }
 
-        public async Task<Ticket> AddAsync(Ticket ticket)
+        public override async Task<Ticket> AddAsync(Ticket ticket)
         {
             await base.AddAsync(ticket);
             await SaveChangesAsync();
