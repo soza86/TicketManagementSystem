@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using TicketManagementSystem.ApplicationLayer.Common;
+using TicketManagementSystem.ApplicationLayer.DTOs;
 using TicketManagementSystem.ApplicationLayer.Interfaces;
 using TicketManagementSystem.ApplicationLayer.Services;
 using TicketManagementSystem.Core.Interfaces;
@@ -47,24 +48,17 @@ namespace TicketManagementSystem.API
 
             app.UseAuthorization();
 
-            var summaries = new[]
+            app.MapGet("/tickets/{ticketId}", async (int ticketId, ITicketService ticketService) =>
             {
-                "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-            };
+                var ticketDetails = await ticketService.GetByIdAsync(ticketId);
+                return Results.Ok(ticketDetails);
+            });
 
-            app.MapGet("/weatherforecast", (HttpContext httpContext) =>
+            app.MapPost("/tickets", async (CreateTicketDto request, ITicketService ticketService) =>
             {
-                var forecast = Enumerable.Range(1, 5).Select(index =>
-                    new WeatherForecast
-                    {
-                        Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                        TemperatureC = Random.Shared.Next(-20, 55),
-                        Summary = summaries[Random.Shared.Next(summaries.Length)]
-                    })
-                    .ToArray();
-                return forecast;
-            })
-            .WithName("GetWeatherForecast");
+                var result = await ticketService.CreateAsync(request);
+                return Results.Ok(result);
+            });
 
             app.Run();
         }
