@@ -8,6 +8,6 @@ namespace TicketManagementSystem.ApplicationLayer.Interfaces
 
         Task<ServiceResponse<TicketDto?>> GetByIdAsync(int id);
 
-        Task<ServiceResponse<TicketDto>> CreateAsync(CreateTicketDto ticket);
+        Task<ServiceResponse<TicketDto?>> CreateAsync(CreateTicketDto createTicketDto);
     }
 }

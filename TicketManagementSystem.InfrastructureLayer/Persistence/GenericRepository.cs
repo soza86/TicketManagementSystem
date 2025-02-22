@@ -14,7 +14,7 @@ namespace TicketManagementSystem.InfrastructureLayer.Persistence
             throw new NotImplementedException();
         }
 
-        public Task AddAsync(T entity)
+        public Task<T> AddAsync(T entity)
         {
             throw new NotImplementedException();
         }
