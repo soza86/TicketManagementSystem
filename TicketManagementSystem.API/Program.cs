@@ -1,4 +1,7 @@
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using TicketManagementSystem.API.Validators;
 using TicketManagementSystem.ApplicationLayer.Common;
 using TicketManagementSystem.ApplicationLayer.DTOs;
 using TicketManagementSystem.ApplicationLayer.Interfaces;
@@ -24,6 +27,7 @@ namespace TicketManagementSystem.API
             builder.Services.AddScoped<ITicketRepository, TicketRepository>();
             builder.Services.AddScoped<ITicketService, TicketService>();
             builder.Services.AddSingleton<ITicketMapper, TicketMapper>();
+            builder.Services.AddValidatorsFromAssemblyContaining<CreateTicketDtoValidator>();
 
             builder.Services.AddAuthorization();
 
@@ -52,13 +56,17 @@ namespace TicketManagementSystem.API
             {
                 var ticketDetails = await ticketService.GetByNumberAsync(ticketNumber);
                 return Results.Ok(ticketDetails);
-            });
+            }).WithName("GetTicket");
 
-            app.MapPost("/tickets", async (CreateTicketDto request, ITicketService ticketService) =>
+            app.MapPost("/tickets", async (CreateTicketDto request, ITicketService ticketService, IValidator<CreateTicketDto> validator) =>
             {
+                var validationResult = await validator.ValidateAsync(request);
+                if (!validationResult.IsValid)
+                    return Results.BadRequest(validationResult.Errors);
+
                 var result = await ticketService.CreateAsync(request);
                 return Results.Ok(result);
-            });
+            }).WithName("CreateTicket");
 
             app.Run();
         }
