@@ -1,4 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using TicketManagementSystem.ApplicationLayer.Common;
+using TicketManagementSystem.ApplicationLayer.Interfaces;
+using TicketManagementSystem.ApplicationLayer.Services;
+using TicketManagementSystem.Core.Interfaces;
 using TicketManagementSystem.InfrastructureLayer.Persistence;
 
 namespace TicketManagementSystem.API
@@ -13,6 +17,12 @@ namespace TicketManagementSystem.API
             builder.Services.AddDbContext<TicketDbContext>(options =>
                                 options.UseSqlServer(builder.Configuration.GetConnectionString("TicketManagementSystemDbConnection"),
                                 sqlOptions => sqlOptions.MigrationsAssembly("TicketManagementSystem.InfrastructureLayer")));
+
+            builder.Services.AddScoped<DbContext, TicketDbContext>();
+            builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            builder.Services.AddScoped<ITicketRepository, TicketRepository>();
+            builder.Services.AddScoped<ITicketService, TicketService>();
+            builder.Services.AddSingleton<ITicketMapper, TicketMapper>();
 
             builder.Services.AddAuthorization();
 
