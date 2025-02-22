@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 using TicketManagementSystem.Core.Interfaces;
 
 namespace TicketManagementSystem.InfrastructureLayer.Persistence
@@ -22,6 +23,11 @@ namespace TicketManagementSystem.InfrastructureLayer.Persistence
         public async Task<T?> GetByIdAsync(int id)
         {
             return await _dbSet.FindAsync(id);
+        }
+
+        public async Task<T> GetByFieldAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _dbSet.FirstOrDefaultAsync(predicate);
         }
 
         public async Task AddAsync(T entity)

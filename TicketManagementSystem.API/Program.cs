@@ -48,9 +48,9 @@ namespace TicketManagementSystem.API
 
             app.UseAuthorization();
 
-            app.MapGet("/tickets/{ticketId}", async (int ticketId, ITicketService ticketService) =>
+            app.MapGet("/tickets/{ticketNumber}", async (int ticketNumber, ITicketService ticketService) =>
             {
-                var ticketDetails = await ticketService.GetByIdAsync(ticketId);
+                var ticketDetails = await ticketService.GetByNumberAsync(ticketNumber);
                 return Results.Ok(ticketDetails);
             });
 

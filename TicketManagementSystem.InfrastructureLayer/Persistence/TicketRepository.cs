@@ -17,6 +17,11 @@ namespace TicketManagementSystem.InfrastructureLayer.Persistence
             return base.GetByIdAsync(id);
         }
 
+        public Task<Ticket?> GetByNumberAsync(int number)
+        {
+            return GetByFieldAsync(f => f.Number == number);
+        }
+
         public async Task<Ticket> AddAsync(Ticket ticket)
         {
             await base.AddAsync(ticket);

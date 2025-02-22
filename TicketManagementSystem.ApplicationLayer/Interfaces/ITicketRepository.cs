@@ -8,6 +8,8 @@ namespace TicketManagementSystem.ApplicationLayer.Interfaces
 
         Task<Ticket?> GetByIdAsync(int id);
 
+        Task<Ticket?> GetByNumberAsync(int number);
+
         Task<Ticket> AddAsync(Ticket ticket);
     }
 }
