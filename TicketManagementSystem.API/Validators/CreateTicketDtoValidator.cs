@@ -9,7 +9,7 @@ namespace TicketManagementSystem.API.Validators
         {
             RuleFor(x => x.Number).NotEmpty().WithMessage("Ticket number is required");
             RuleFor(x => x.FlightDate).NotEmpty().WithMessage("Flight date is required")
-                                      .GreaterThanOrEqualTo(DateTime.UtcNow).WithMessage("Flight date can not be in the past.");
+                                      .GreaterThanOrEqualTo(DateTime.UtcNow).WithMessage("Flight date can not be in the past");
             RuleFor(x => x.DepartureCity).NotEmpty().WithMessage("Departure city is required")
                                          .NotEqual(x => x.ArrivalCity).WithMessage("Departure city can not be the same as arrival city");
             RuleFor(x => x.DepartureCountry).NotEmpty().WithMessage("Departure country is required");

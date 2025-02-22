@@ -1,7 +1,6 @@
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
-using System.ComponentModel.DataAnnotations;
 using TicketManagementSystem.API.Middlewares;
 using TicketManagementSystem.API.Validators;
 using TicketManagementSystem.ApplicationLayer.Common;
@@ -27,6 +26,7 @@ namespace TicketManagementSystem.API
                 .CreateLogger();
 
             builder.Host.UseSerilog();
+
             // Add services to the container.
             builder.Services.AddDbContext<TicketDbContext>(options =>
                                 options.UseSqlServer(builder.Configuration.GetConnectionString("TicketManagementSystemDbConnection"),

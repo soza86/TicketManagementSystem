@@ -33,6 +33,8 @@
             StatusCode = statusCode;
         }
 
+        public ServiceResponse() { }
+
         public static ServiceResponse<T?> SuccessResponse(T data) => new(data, 200);
         public static ServiceResponse<T> SuccessResponse(List<T> dataList) => new(dataList, 200);
         public static ServiceResponse<T?> NotFoundResponse(string message) => new(message, 404);
